@@ -38,6 +38,13 @@ public int getWhoseMove() {
 public void setWhoseMove(int whoseMove) {
   this.whoseMove = whoseMove;
 }
+public int getBoardCell(int row, int col) {
+	    return this.board[row][col];
+	}
+
+public void setBoardCell(int row, int col, int value) {
+	    this.board[row][col] = value;
+	}
 
 }
 

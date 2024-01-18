@@ -17,8 +17,8 @@ public class EventLoop {
         state.setXName(ui.promptForName(Constants.X));
         state.setGameState(Constants.GET_O_NAME);
     
-      } else if (gameState == Constants.GET_O_NAME) {
-        state.setYName(ui.promptForName(Constants.O));
+      } else if ( gameState == Constants.GET_O_NAME) {
+        state.setOName(ui.promptForName(Constants.O));
         state.setGameState(Constants.GET_X_MOVE);
     
       } else if (gameState == Constants.GET_X_MOVE) {

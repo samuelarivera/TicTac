@@ -13,7 +13,7 @@ public class UI
       Scanner scanner;
 
     public UI() {
-        scanner = new Scanner(System.in);         
+        scanner = new Scanner(System.in);      
     }
  // Utility methods
     public String getXOrO(int whoseMove) {
@@ -24,7 +24,7 @@ public class UI
         return (whoseMove == -1) ? xName : oName;
     }
 
-    public boolean isLegalMove(int state, int row, int col) {
+    public boolean isLegalMove(State state, int row, int col) {
         return 1 <= row && row <= Constants.BOARD_SIZE &&
         1 <= col && col <= Constants.BOARD_SIZE &&
         state.getBoardCell(row,col) == Constants.BLANK;
@@ -37,8 +37,8 @@ public class UI
     }
 
     public int getMoveRow(int whoseMove, String xName, String oName) {
-        int row;
-        while (row <= 0 || row >= Constants.BOARD_SIZE) {
+        int row = 0;
+        while (row <= 0 || row > Constants.BOARD_SIZE) {
             try {
                 System.out.printf(Constants.GET_ROW_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
                 row = scanner.nextInt();
@@ -50,8 +50,8 @@ public class UI
     }
 
     public int getMoveCol(int whoseMove, String xName, String oName) {
-        int col;
-        while (col <= 0 || col >= 4) {
+        int col = 0;
+        while (col < 1 || col > Constants.BOARD_SIZE) {
             try {
                 System.out.printf(Constants.GET_COL_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
                 col = scanner.nextInt();
@@ -61,18 +61,15 @@ public class UI
         }
         return col;
     }
-
     public boolean startNewGame() {
         System.out.println(Constants.START_NEW_GAME);
         String yesOrNo = scanner.next();
         return yesOrNo == "Y";
     }
-
     // Printing text methods
     public void printWelcome() {
         System.out.println(Constants.TITLE);
     }
-
     public void printBoard(State state) {
         System.out.println(Constants.DIVIDER_STRING);
         for (int row = 0; row < Constants.BOARD_SIZE; row++) {

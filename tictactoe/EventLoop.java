@@ -73,7 +73,7 @@ public class EventLoop {
         state.setGameState(Constants.GAME_OVER);
 
       } else if (gameState == Constants.GAME_OVER) {
-        if (ui.startNewGame()) {
+        if (ui.startNewGame() == true) {
 
           state.setGameState(Constants.STANDBY);
         } else {

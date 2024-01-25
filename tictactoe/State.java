@@ -76,7 +76,7 @@ public class State
     }
 
     public void setBoardCell(int row, int col, int value) {
-        this.board[row][col] = value;
+        this.board[row-1][col-1] = value;
     }
 }
 

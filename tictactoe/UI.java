@@ -25,9 +25,9 @@ public class UI
     }
 
     public boolean isLegalMove(State state, int row, int col) {
-        return 1 <= (row + 1) && (row +1) <= Constants.BOARD_SIZE && //setBoardCell in state subtracts 1 from row and column for index
-        1 <= (col + 1) && (col + 1) <= Constants.BOARD_SIZE &&          // + 1 at the end adds the 1 back
-        state.getBoardCell(row,col) == Constants.BLANK;
+        return 1 <= (row) && (row) <= Constants.BOARD_SIZE && //setBoardCell in state subtracts 1 from row and column for index
+        1 <= (col) && (col) <= Constants.BOARD_SIZE &&          // + 1 at the end adds the 1 back
+        state.getBoardCell(row - 1,col - 1) == Constants.BLANK;
     }
 
     // Prompt for input methods
@@ -64,7 +64,7 @@ public class UI
     public boolean startNewGame() {
         System.out.println(Constants.START_NEW_GAME);
         String yesOrNo = scanner.next();
-        return yesOrNo == "Y";
+        return yesOrNo.equals("Y") || yesOrNo.equals("y");
     }
     // Printing text methods
     public void printWelcome() {
@@ -79,8 +79,8 @@ public class UI
         System.out.println(Constants.DIVIDER_STRING);
     }
 
-    public void printInvalidRowOrColumn(int rowOrCol) {
-        System.out.printf(Constants.INVALID_ROW_OR_COLUMN, rowOrCol);
+    public void printInvalidRowOrColumn() {
+        System.out.printf(Constants.INVALID_ROW_OR_COLUMN);
     }
 
     public void printInvalidMove(int row, int col) {
@@ -92,7 +92,11 @@ public class UI
     } 
 
     public void printWinner(State state) {
-        System.out.printf(Constants.WINNER, getXOrO(state.getWhoseMove()), getPlayerName(state.getWhoseMove(), state.getXName(), state.getOName()));
+        System.out.printf(Constants.WINNER,
+        getXOrO(state.getWhoseMove()),
+        getPlayerName(state.getWhoseMove(), state.getXName(), state.getOName())
+        );
+        System.out.println();
     }
 
     public void printTieGame() {

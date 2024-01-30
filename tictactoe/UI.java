@@ -38,12 +38,23 @@ public class UI
 
     public int getMoveRow(int whoseMove, String xName, String oName) {
         int row = 0;
+        int checkRow = 1; 
+         if (checkRow < 1 || checkRow > 3) {
+            throw new BoardSizeException();
+        }
         while (row <= 0 || row > Constants.BOARD_SIZE) {
             try {
                 System.out.printf(Constants.GET_ROW_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
+                checkRow = scanner.nextInt();
                 row = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+                scanner.next();
+            }
+            if(checkRow < 1 || checkRow > 3){
+                System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+                scanner.next();
+                checkRow = 1;
             }
         }
         return row;
@@ -51,12 +62,22 @@ public class UI
 
     public int getMoveCol(int whoseMove, String xName, String oName) {
         int col = 0;
+        int checkCol = 1;
+         if (checkCol < 1 || checkCol > 3) {
+            throw new BoardSizeException();
+        }
         while (col <= 0 || col > Constants.BOARD_SIZE) {
             try {
                 System.out.printf(Constants.GET_COL_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
                 col = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+                scanner.next();
+            }
+             if(checkCol< 1 || checkCol > 3){
+                System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+                scanner.next();
+                checkCol = 1;
             }
         }
         return col;
@@ -89,6 +110,7 @@ public class UI
 
     public void printMove(State state, int row, int col) {
         System.out.printf(Constants.PRINT_MOVE, getXOrO(state.getWhoseMove()), getPlayerName(state.getWhoseMove(), state.getXName(), state.getOName()), row, col);
+        System.out.println();
     } 
 
     public void printWinner(State state) {

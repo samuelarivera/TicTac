@@ -1,6 +1,6 @@
 package tictactoe;
 import java.util.Scanner;
-
+import java.util.InputMismatchException;
 
 /**
  * Write a description of class UI here.
@@ -10,12 +10,12 @@ import java.util.Scanner;
  */
 public class UI
 {
-      Scanner scanner;
+    Scanner scanner;
 
     public UI() {
         scanner = new Scanner(System.in);      
     }
- // Utility methods
+    // Utility methods
     public String getXOrO(int whoseMove) {
         return (whoseMove == -1) ? "X" : (whoseMove == 1) ? "O": " ";
     }
@@ -38,24 +38,23 @@ public class UI
 
     public int getMoveRow(int whoseMove, String xName, String oName) {
         int row = 0;
-        int checkRow = 1; 
-         if (checkRow < 1 || checkRow > 3) {
-            throw new BoardSizeException();
-        }
-        while (row <= 0 || row > Constants.BOARD_SIZE) {
-            try {
+        int checkRow = 1;
+        try {
+            while (row <= 0 || row > Constants.BOARD_SIZE) {
                 System.out.printf(Constants.GET_ROW_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
-                checkRow = scanner.nextInt();
                 row = scanner.nextInt();
-            } catch (Exception e) {
-                System.out.println(Constants.INVALID_ROW_OR_COLUMN);
-                scanner.next();
+                checkRow = row;
             }
-            if(checkRow < 1 || checkRow > 3){
-                System.out.println(Constants.INVALID_ROW_OR_COLUMN);
-                scanner.next();
-                checkRow = 1;
+            if (checkRow < 1 || checkRow > 3) {
+                throw new Exception(Constants.INVALID_ROW_OR_COLUMN);
             }
+            return row;
+        }catch(InputMismatchException e){
+            System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+            scanner.next();
+        }catch(Exception e){
+            System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+            scanner.next();
         }
         return row;
     }
@@ -63,25 +62,26 @@ public class UI
     public int getMoveCol(int whoseMove, String xName, String oName) {
         int col = 0;
         int checkCol = 1;
-         if (checkCol < 1 || checkCol > 3) {
-            throw new BoardSizeException();
+        if (checkCol < 1 || checkCol > 3) {
+            throw new Error();
         }
-        while (col <= 0 || col > Constants.BOARD_SIZE) {
-            try {
+        try {
+            while (col <= 0 || col > Constants.BOARD_SIZE) {
                 System.out.printf(Constants.GET_COL_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
                 col = scanner.nextInt();
-            } catch (Exception e) {
-                System.out.println(Constants.INVALID_ROW_OR_COLUMN);
-                scanner.next();
+                checkCol = col;
             }
-             if(checkCol< 1 || checkCol > 3){
-                System.out.println(Constants.INVALID_ROW_OR_COLUMN);
-                scanner.next();
-                checkCol = 1;
-            }
+            return col;
+        }catch(InputMismatchException I){
+            System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+            scanner.next();
+        } catch(Exception e){
+            System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+            scanner.next();
         }
         return col;
     }
+
     public boolean startNewGame() {
         System.out.println(Constants.START_NEW_GAME);
         String yesOrNo = scanner.next();
@@ -91,6 +91,7 @@ public class UI
     public void printWelcome() {
         System.out.println(Constants.TITLE);
     }
+
     public void printBoard(State state) {
         System.out.println(Constants.DIVIDER_STRING);
         for (int row = 0; row < Constants.BOARD_SIZE; row++) {
@@ -115,8 +116,8 @@ public class UI
 
     public void printWinner(State state) {
         System.out.printf(Constants.WINNER,
-        getXOrO(state.getWhoseMove()),
-        getPlayerName(state.getWhoseMove(), state.getXName(), state.getOName())
+            getXOrO(state.getWhoseMove()),
+            getPlayerName(state.getWhoseMove(), state.getXName(), state.getOName())
         );
         System.out.println();
     }

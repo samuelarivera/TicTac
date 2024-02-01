@@ -42,17 +42,14 @@ public class UI
         try {
             while (row <= 0 || row > Constants.BOARD_SIZE) {
                 System.out.printf(Constants.GET_ROW_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
-                row = scanner.nextInt();
-                checkRow = row;
-            }
-            if (checkRow < 1 || checkRow > 3) {
-                throw new Exception(Constants.INVALID_ROW_OR_COLUMN);
+                checkRow = scanner.nextInt();
+                if (checkRow < 1 || checkRow > 3) {
+                    System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+                }
+                row = checkRow;
             }
             return row;
         }catch(InputMismatchException e){
-            System.out.println(Constants.INVALID_ROW_OR_COLUMN);
-            scanner.next();
-        }catch(Exception e){
             System.out.println(Constants.INVALID_ROW_OR_COLUMN);
             scanner.next();
         }
@@ -62,20 +59,17 @@ public class UI
     public int getMoveCol(int whoseMove, String xName, String oName) {
         int col = 0;
         int checkCol = 1;
-        if (checkCol < 1 || checkCol > 3) {
-            throw new Error();
-        }
         try {
             while (col <= 0 || col > Constants.BOARD_SIZE) {
                 System.out.printf(Constants.GET_COL_MOVE, getXOrO(whoseMove), getPlayerName(whoseMove, xName, oName));
-                col = scanner.nextInt();
-                checkCol = col;
+                checkCol = scanner.nextInt();
+                if (checkCol < 1 || checkCol > 3) {
+                    System.out.println(Constants.INVALID_ROW_OR_COLUMN);
+                }
+                col = checkCol;
             }
             return col;
         }catch(InputMismatchException I){
-            System.out.println(Constants.INVALID_ROW_OR_COLUMN);
-            scanner.next();
-        } catch(Exception e){
             System.out.println(Constants.INVALID_ROW_OR_COLUMN);
             scanner.next();
         }
